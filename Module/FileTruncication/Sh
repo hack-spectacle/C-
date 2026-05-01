@@ -1,0 +1,46 @@
+#!/bin/bash
+
+APP_NAME="C[] GUI Maker"
+
+show_alert() {
+osascript <<EOF
+display dialog "$1" with title "$APP_NAME" buttons {"OK"} default button "OK"
+EOF
+}
+
+ask_input() {
+osascript <<EOF
+text returned of (display dialog "$1" with title "$APP_NAME" default answer "")
+EOF
+}
+
+choose_option() {
+osascript <<EOF
+choose from list {"Create Folder", "Create File", "Show Info", "Exit"} with title "$APP_NAME" with prompt "Choose an action:"
+EOF
+}
+
+while true; do
+    choice=$(choose_option)
+
+    if [ "$choice" = "false" ] || [ "$choice" = "Exit" ]; then
+        show_alert "Goodbye!"
+        exit 0
+    fi
+
+    if [ "$choice" = "Create Folder" ]; then
+        folder=$(ask_input "Enter folder name:")
+        mkdir -p "$folder"
+        show_alert "Folder created: $folder"
+    fi
+
+    if [ "$choice" = "Create File" ]; then
+        file=$(ask_input "Enter file name:")
+        touch "$file"
+        show_alert "File created: $file"
+    fi
+
+    if [ "$choice" = "Show Info" ]; then
+        show_alert "This is a shell-based GUI maker."
+    fi
+done
