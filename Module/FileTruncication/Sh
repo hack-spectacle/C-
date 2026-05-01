@@ -1,46 +1,64 @@
 #!/bin/bash
 
-APP_NAME="C[] GUI Maker"
+APP_NAME="C[] Launcher"
+BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+NEEDED_DIR="$BASE_DIR/Needed"
+WORKSPACE_DIR="$BASE_DIR/WorkSpace"
 
-show_alert() {
+mkdir -p "$NEEDED_DIR"
+mkdir -p "$WORKSPACE_DIR"
+
+alert() {
 osascript <<EOF
 display dialog "$1" with title "$APP_NAME" buttons {"OK"} default button "OK"
 EOF
 }
 
-ask_input() {
+menu() {
 osascript <<EOF
-text returned of (display dialog "$1" with title "$APP_NAME" default answer "")
+choose from list {"Start Launcher", "Create Project Folders", "Open Workspace", "Show Info", "Exit"} with title "$APP_NAME" with prompt "C[] Launcher\n\nSelect an option:"
 EOF
 }
 
-choose_option() {
-osascript <<EOF
-choose from list {"Create Folder", "Create File", "Show Info", "Exit"} with title "$APP_NAME" with prompt "Choose an action:"
-EOF
+show_info() {
+alert "C[] Launcher\n\nVersion: 1.0\nMade by Hack-Spectacle\n\nSafe shell GUI launcher for Mac."
+}
+
+create_folders() {
+mkdir -p "$NEEDED_DIR/Modules"
+mkdir -p "$WORKSPACE_DIR/Scripts"
+mkdir -p "$WORKSPACE_DIR/Logs"
+alert "Folders created successfully."
+}
+
+open_workspace() {
+open "$WORKSPACE_DIR"
+}
+
+start_launcher() {
+alert "C[] Launcher started."
 }
 
 while true; do
-    choice=$(choose_option)
+    choice=$(menu)
 
     if [ "$choice" = "false" ] || [ "$choice" = "Exit" ]; then
-        show_alert "Goodbye!"
+        alert "Goodbye."
         exit 0
     fi
 
-    if [ "$choice" = "Create Folder" ]; then
-        folder=$(ask_input "Enter folder name:")
-        mkdir -p "$folder"
-        show_alert "Folder created: $folder"
-    fi
-
-    if [ "$choice" = "Create File" ]; then
-        file=$(ask_input "Enter file name:")
-        touch "$file"
-        show_alert "File created: $file"
-    fi
-
-    if [ "$choice" = "Show Info" ]; then
-        show_alert "This is a shell-based GUI maker."
-    fi
+    case "$choice" in
+        "Start Launcher")
+            start_launcher
+            ;;
+        "Create Project Folders")
+            create_folders
+            ;;
+        "Open Workspace")
+            open_workspace
+            ;;
+        "Show Info")
+            show_info
+            ;;
+    esac
 done
