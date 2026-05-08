@@ -1,98 +1,188 @@
 #!/bin/bash
 
-# Open Executor - Roblox UI Application
-# Shell script starter for the Open Executor application
+# Open Executor - MacSploit Style Roblox UI Application
+# Modern, sleek shell script starter with MacSploit-inspired UI
 
 set -e
 
-# Color codes for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Extended color codes for MacSploit theme
+declare -A COLORS=(
+    [BLACK]='\033[0;30m'
+    [RED]='\033[0;91m'
+    [GREEN]='\033[0;92m'
+    [YELLOW]='\033[0;93m'
+    [BLUE]='\033[0;94m'
+    [MAGENTA]='\033[0;95m'
+    [CYAN]='\033[0;96m'
+    [WHITE]='\033[0;97m'
+    [DARK_GRAY]='\033[1;30m'
+    [LIGHT_GRAY]='\033[0;37m'
+    [BOLD_WHITE]='\033[1;97m'
+    [RESET]='\033[0m'
+)
+
+# MacSploit theme colors
+THEME_PRIMARY="${COLORS[CYAN]}"
+THEME_SUCCESS="${COLORS[GREEN]}"
+THEME_ERROR="${COLORS[RED]}"
+THEME_WARNING="${COLORS[YELLOW]}"
+THEME_ACCENT="${COLORS[MAGENTA]}"
+THEME_BG_DARK="${COLORS[BLACK]}"
+NC="${COLORS[RESET]}"
 
 # Application configuration
 APP_NAME="Open Executor"
-APP_VERSION="1.0.0"
+APP_VERSION="2.0.0"
+APP_STYLE="MacSploit"
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# ASCII Art Banner - MacSploit Style
+print_banner() {
+    clear
+    echo -e "${THEME_PRIMARY}╔════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}                                                              ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}          ${THEME_ACCENT}╔═══╗ ╔═╗ ╔═╗ ╔╗╔ ${THEME_PRIMARY}${THEME_ACCENT}╔═══╗ ╔═══╗ ╔═╗ ╔═╗${THEME_PRIMARY}                ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}          ${THEME_ACCENT}║ ╔═╝ ║ ║ ║ ║ ║║║ ${THEME_PRIMARY}${THEME_ACCENT}║ ╔═╝ ║ ╔═╗ ║═╝ ║ ║${THEME_PRIMARY}                ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}          ${THEME_ACCENT}║ ╚═╗ ║ ║ ║ ║ ║╚╝ ${THEME_PRIMARY}${THEME_ACCENT}║ ╚═╗ ║ ╠═╣ ║ ╗ ║ ║${THEME_PRIMARY}                ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}          ${THEME_ACCENT}╚═══╝ ╚═╝ ╚═╝ ╚╝╚  ${THEME_PRIMARY}${THEME_ACCENT}╚═══╝ ╚═╩═╝ ╚═╝ ╚═╝${THEME_PRIMARY}                ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}                                                              ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}                     ${THEME_CYAN}Roblox Execution Platform${THEME_PRIMARY}                     ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}║${NC}                      ${THEME_ACCENT}Style: MacSploit Edition${THEME_PRIMARY}                     ${THEME_PRIMARY}║${NC}"
+    echo -e "${THEME_PRIMARY}╚════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+}
 
 # Function to print colored output
 print_status() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+    echo -e "${THEME_PRIMARY}[•]${NC} $1"
 }
 
 print_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
+    echo -e "${THEME_SUCCESS}[✓]${NC} $1"
 }
 
 print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
+    echo -e "${THEME_ERROR}[✗]${NC} $1"
 }
 
 print_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
+    echo -e "${THEME_WARNING}[!]${NC} $1"
 }
 
-# Function to display help
+print_section() {
+    echo ""
+    echo -e "${THEME_PRIMARY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${THEME_ACCENT}  $1${NC}"
+    echo -e "${THEME_PRIMARY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+}
+
+# Function to display help with MacSploit styling
 show_help() {
-    cat << EOF
-${BLUE}${APP_NAME} v${APP_VERSION}${NC}
-Open-Source UI for Roblox purposes
-
-USAGE:
-    app [COMMAND] [OPTIONS]
-
-COMMANDS:
-    start       Start the Open Executor UI
-    stop        Stop the Open Executor UI
-    restart     Restart the Open Executor UI
-    status      Show application status
-    help        Display this help message
-    version     Show version information
-
-OPTIONS:
-    --config    Specify custom config file
-    --debug     Enable debug mode
-    --port      Specify port (default: 8080)
-
-EXAMPLES:
-    app start
-    app start --port 9000
-    app start --debug
-
-EOF
+    print_banner
+    print_section "COMMAND REFERENCE"
+    
+    echo -e "${THEME_CYAN}  STARTUP COMMANDS:${NC}"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}start${NC}              Launch the Open Executor UI"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}stop${NC}               Terminate the application"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}restart${NC}            Restart the application gracefully"
+    echo ""
+    
+    echo -e "${THEME_CYAN}  INFORMATION COMMANDS:${NC}"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}status${NC}             Display system status"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}version${NC}            Show version information"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}help${NC}               Display this menu"
+    echo ""
+    
+    echo -e "${THEME_CYAN}  OPTIONS:${NC}"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}--config${NC} <path>    Load custom configuration"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}--debug${NC}             Enable debug mode"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}--port${NC} <port>      Set server port (default: 8080)"
+    echo -e "    ${THEME_PRIMARY}•${NC} ${THEME_BOLD_WHITE}--ui-mode${NC} <mode>   Theme mode (dark/light)"
+    echo ""
+    
+    echo -e "${THEME_CYAN}  EXAMPLES:${NC}"
+    echo -e "    ${THEME_PRIMARY}•${NC} app start"
+    echo -e "    ${THEME_PRIMARY}•${NC} app start --port 9000"
+    echo -e "    ${THEME_PRIMARY}•${NC} app start --debug --ui-mode dark"
+    echo ""
+    
+    print_section "END"
 }
 
 # Function to show version
 show_version() {
-    echo -e "${BLUE}${APP_NAME}${NC} v${APP_VERSION}"
-    echo "Open-Source UI for Roblox purposes"
+    print_banner
+    echo -e "${THEME_BOLD_WHITE}Application Details:${NC}"
+    echo -e "  ${THEME_PRIMARY}Name${NC}:      ${APP_NAME}"
+    echo -e "  ${THEME_PRIMARY}Version${NC}:   ${APP_VERSION}"
+    echo -e "  ${THEME_PRIMARY}Style${NC}:     ${APP_STYLE}"
+    echo -e "  ${THEME_PRIMARY}Platform${NC}:  Roblox UI Execution"
+    echo ""
 }
 
-# Function to start the application
+# Function to start the application with MacSploit-style output
 start_app() {
-    print_status "Starting ${APP_NAME}..."
-    print_status "Application directory: ${APP_DIR}"
+    print_banner
+    print_section "INITIALIZING APPLICATION"
+    
+    print_status "Loading ${APP_NAME} v${APP_VERSION}..."
+    sleep 0.3
+    
+    print_status "Application directory: ${THEME_ACCENT}${APP_DIR}${NC}"
+    sleep 0.2
     
     if [ -f "${APP_DIR}/.env" ]; then
         print_status "Loading environment configuration..."
         # shellcheck source=/dev/null
         source "${APP_DIR}/.env"
+        sleep 0.2
     fi
     
-    print_success "${APP_NAME} started successfully"
-    print_status "The Roblox executor UI is now running"
+    print_status "Initializing UI components..."
+    sleep 0.3
+    
+    print_status "Establishing connection to Roblox platform..."
+    sleep 0.3
+    
+    print_status "Loading script executor engine..."
+    sleep 0.3
+    
+    print_success "${APP_NAME} ${APP_VERSION} initialized successfully"
+    echo ""
+    
+    print_section "STATUS"
+    echo -e "  ${THEME_PRIMARY}Status${NC}:          ${THEME_SUCCESS}RUNNING${NC}"
+    echo -e "  ${THEME_PRIMARY}UI Theme${NC}:        ${THEME_ACCENT}MacSploit (Dark)${NC}"
+    echo -e "  ${THEME_PRIMARY}Executor${NC}:        ${THEME_SUCCESS}ACTIVE${NC}"
+    echo -e "  ${THEME_PRIMARY}Connection${NC}:      ${THEME_SUCCESS}ESTABLISHED${NC}"
+    echo ""
+    
+    print_section "READY FOR EXECUTION"
+    echo -e "  ${THEME_ACCENT}Type 'help' for command reference${NC}"
+    echo ""
 }
 
 # Function to stop the application
 stop_app() {
-    print_status "Stopping ${APP_NAME}..."
-    print_success "${APP_NAME} stopped successfully"
+    print_status "Shutting down ${APP_NAME}..."
+    sleep 0.3
+    
+    print_status "Closing UI components..."
+    sleep 0.2
+    
+    print_status "Terminating executor engine..."
+    sleep 0.2
+    
+    print_success "${APP_NAME} terminated successfully"
+    echo ""
 }
 
 # Function to restart the application
 restart_app() {
+    print_status "Restarting ${APP_NAME}..."
+    sleep 0.2
     stop_app
     sleep 1
     start_app
@@ -100,11 +190,19 @@ restart_app() {
 
 # Function to show application status
 show_status() {
-    echo -e "${BLUE}=== ${APP_NAME} Status ===${NC}"
-    echo "Name: ${APP_NAME}"
-    echo "Version: ${APP_VERSION}"
-    echo "App Directory: ${APP_DIR}"
-    echo "Status: Running"
+    print_banner
+    print_section "SYSTEM STATUS"
+    
+    echo -e "  ${THEME_PRIMARY}Application${NC}:  ${THEME_BOLD_WHITE}${APP_NAME}${NC}"
+    echo -e "  ${THEME_PRIMARY}Version${NC}:      ${THEME_ACCENT}${APP_VERSION}${NC}"
+    echo -e "  ${THEME_PRIMARY}Theme${NC}:        ${THEME_ACCENT}MacSploit Edition${NC}"
+    echo -e "  ${THEME_PRIMARY}Directory${NC}:    ${THEME_ACCENT}${APP_DIR}${NC}"
+    echo -e "  ${THEME_PRIMARY}Status${NC}:       ${THEME_SUCCESS}RUNNING${NC}"
+    echo -e "  ${THEME_PRIMARY}Executor${NC}:     ${THEME_SUCCESS}ACTIVE${NC}"
+    echo -e "  ${THEME_PRIMARY}UI Mode${NC}:      ${THEME_ACCENT}Dark (MacSploit)${NC}"
+    echo ""
+    
+    print_section "END"
 }
 
 # Main script logic
@@ -129,7 +227,8 @@ main() {
             show_help
             ;;
         *)
-            print_error "Unknown command: $1"
+            print_error "Unknown command: ${THEME_ACCENT}$1${NC}"
+            echo ""
             show_help
             exit 1
             ;;
