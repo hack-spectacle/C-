@@ -6,20 +6,18 @@
 set -e
 
 # Extended color codes for MacSploit theme
-declare -A COLORS=(
-    [BLACK]='\033[0;30m'
-    [RED]='\033[0;91m'
-    [GREEN]='\033[0;92m'
-    [YELLOW]='\033[0;93m'
-    [BLUE]='\033[0;94m'
-    [MAGENTA]='\033[0;95m'
-    [CYAN]='\033[0;96m'
-    [WHITE]='\033[0;97m'
-    [DARK_GRAY]='\033[1;30m'
-    [LIGHT_GRAY]='\033[0;37m'
-    [BOLD_WHITE]='\033[1;97m'
-    [RESET]='\033[0m'
-)
+BLACK='\033[0;30m'
+RED='\033[0;91m'
+GREEN='\033[0;92m'
+YELLOW='\033[0;93m'
+BLUE='\033[0;94m'
+MAGENTA='\033[0;95m'
+CYAN='\033[0;96m'
+WHITE='\033[0;97m'
+DARK_GRAY='\033[1;30m'
+LIGHT_GRAY='\033[0;37m'
+BOLD_WHITE='\033[1;97m'
+RESET='\033[0m'
 
 # MacSploit theme colors
 THEME_PRIMARY="${COLORS[CYAN]}"
@@ -30,12 +28,14 @@ THEME_ACCENT="${COLORS[MAGENTA]}"
 THEME_BG_DARK="${COLORS[BLACK]}"
 NC="${COLORS[RESET]}"
 
-# Application configuration
-APP_NAME="Open Executor"
-APP_VERSION="2.0.0"
-APP_STYLE="MacSploit"
-APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+THEME_PRIMARY="$CYAN"
+THEME_CYAN="$CYAN"
+THEME_SUCCESS="$GREEN"
+THEME_ERROR="$RED"
+THEME_WARNING="$YELLOW"
+THEME_ACCENT="$MAGENTA"
+THEME_BG_DARK="$BLACK"
+NC="$RESET"
 
 # ASCII Art Banner - MacSploit Style
 print_banner() {
